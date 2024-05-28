@@ -1,0 +1,60 @@
+﻿@model IEnumerable<Blog_App.Data.Blog>
+
+@{
+    ViewData["Title"] = "Blogger";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-10">
+            <div class="form-group">
+                <input id="search" class="form-control" placeholder="Search...."/>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <button onclick="search()" class="btn btn-primary">search</button>
+        </div>
+    </div>
+</div>
+
+<div class="container pt-5">
+    <div class="row">
+        <table class="table table-striped table-bordered text-center">
+            <thead>
+                <tr class="bg-primary text-white">
+                    <th class="p-3" scope="col">@Html.DisplayNameFor(model => model.Title)</th>
+                    <th class="p-3" scope="col">@Html.DisplayNameFor(model => model.Description)</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td class="p-3">
+                            @Html.DisplayFor(modelItem => item.Title)
+                        </td>
+                        <td class="p-3">
+                            @Html.DisplayFor(modelItem => item.Description)
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@section scripts
+{
+    <script>
+        function search() {
+            $("tr").each(function (index, value) {
+                if (index > 0 && !$(this).find("td")[0].innerText.includes($("#search").val())) {
+                    $(this).attr("hidden", true);
+                } else {
+                    $(this).removeAttr("hidden");
+                }
+                console.log(value);
+            })
+        }
+    </script>
+}
